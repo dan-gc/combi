@@ -77,6 +77,8 @@
 \usepackage{mdframed}
 \newmdtheoremenv{teo}{Teorema}
 
+
+
 \newcommand{\R}{\mathbb{R}}
 \newcommand{\Z}{\mathbb{Z}}
 \newcommand{\N}{\mathbb{N}}
@@ -87,6 +89,7 @@
 \DeclareMathOperator{\img}{img}
 \DeclareMathOperator{\ran}{ran}
 \DeclareMathOperator{\Fix}{Fix}
+\DeclareMathOperator{\Stab}{Stab}
 \DeclareMathOperator{\MOLS}{MOLS}
 \DeclareMathOperator{\STS}{STS}
 
@@ -163,18 +166,18 @@
 	
 	O sea que la receta es:
 	\begin{enumerate}
-		\item Escribir la ecuación característica.
-		\item Encontrar las raíces características $\alpha_1,\ldots,\alpha_k$. Entonces las soluciones son de la forma
-		\[A_1\alpha_1^n+\ldots+A_k\alpha_k^n\]
-		\item Sustituir en las condiciones iniciales $a_0,a_1,\ldots,a_{k-1}$ (que nos fueron proporcionadas) para encontrar los valores de $A_1,...,A_k$.
-	\end{enumerate}
-	Y dejamos el teorema por si acaso:
+		\item Busco una constante $\alpha$ tal que $a_n=\alpha^n$ sea una solución. Esto naturalmente me lleva a la ecuación característica.
+		\item Las raíces me dan las soluciones de la recurrencia en la siguiente forma:
 	\begin{teo}[Solución General]
 		Una recurrencia homogénea lineal de orden $k$ con coeficientes constantes cuyas raíces características son $\alpha_1,\ldots,\alpha_r$, todas distintas y con multiplicidades $d_1,\ldots,d_r$, tiene solución
 		\[a_n=\sum_iP_i(n)\alpha_i^n\]
 		donde cada $P_i$ es un polinomio de grado menor que $d_i$.
 	\end{teo}
-	De hecho, todas las soluciones son de esta forma cambiando la elección de los $P_i$.
+	(De hecho, todas las soluciones son de esta forma cambiando la elección de los $P_i$.)
+	\item Encuentro los valores de los polinomios (muchas veces son constantes, cuando las multiplicidades son 1) sustituyendo en las condiciones iniciales que nos dieron.
+\end{enumerate}	
+
+\iffalse
 \subsection{Déjà Vu de Ecuaciones diferenciales}
 	Referencias: \href{http://www.cds.caltech.edu/~murray/courses/cds101/fa02/precourse/delvecchio-26sep02.pdf}{esto} y \href{https://tutorial.math.lamar.edu/Classes/DE/SolutionsToSystems.aspx#mjx-eqn-eqeq1}{esto}.
 	\begin{defn}Un sistema de ecuaciones diferenciales lineales
@@ -242,11 +245,25 @@ Resulta que:
 	\iff y(t)&=c_1y_1(t)+c_2y_2(t)+Y_P(t)
 	\end{align*}
 	para algún conjunto fundamental de soluciones del homogéneo.
+\fi
 \subsection{Relaciones no homogéneas}
 	Literalmente es lo mismo que para ecuaciones diferenciales: las soluciones de una relación de recurrencia no homogénea están dadas por
 	\[a_n=p_n+h_n\]
 	donde $p_n$ es una solución particular y $h_n$ es una solución del sistema homogéneo asociado.
-	Parece que en la práctica usaremos que:
+	
+	Para encontrar la solución particular consulté \href{https://courses.ics.hawaii.edu/ReviewICS241/morea/counting/RecurrenceRelations2-QA.pdf}{estas notas hawaiianas}. Resulta que para una recurrencia de la forma
+	\[a_n=c_1a_{n-1}+\ldots+c_k+F(n)\]
+	donde $F(n)=(b_dn^d+\ldots+b_1n+b_0)s^n$ para ciertos números reales $b_d,\ldots,b_0,s$, hay de dos sopas:
+	\begin{enumerate}
+		\item Cuando $s$ no es una raíz del polinomio característico de la homogénea. En este caso hay una solución particular de la forma
+		\[(\alpha_dn^d+\ldots+\alpha_1n+\alpha_0)s^n\]
+		
+		\item Cuando $s$ es una raíz de multiplicidad $m$ del polinomio característico de la homogénea. En este caso hay una solución particular de la forma
+		\[n^m(\alpha_dn^d+\ldots+\alpha_1n+\alpha_0)s^n\]
+		
+	\end{enumerate}
+	
+	Siguiendo a West:
 	\begin{teo}
 		Tomemos una recurrencia de la forma $a_n=(\sum_{i=1}^kc_ia_{n-i})+F(n)\alpha^n$ donde $n\geq k$, $F$ es un polinomio de grado $d$, y $\alpha$ es una raíz de multiplicidad $r$ de la recurrencia homogénea asociada.
 		
@@ -377,16 +394,26 @@ De hecho podemos generalizar este resulado:
 	La cantidad de permutaciones de $n$ elementos, que es $n!$, se puede ver como la suma de las cantidades de permutaciones que no fijan elementos, las que fijan 1 elemento, 2 elementos, etc., hasta la identidad. Cada una de estas cantidades es justamente $D_{n-k}$.
 	
 	En cada caso hay ${n\choose k}$ elecciones de subconjuntos de $k$ elementos que pueden quedar fijos, así que
-	\[n!=\sum_{k=0}^nD_{n-1}\]
-	Diviendo entre $n!$ factorial, multiplicando por $x^n$ y sumando sobre todos los naturales, obtenemos las funciones generatrices exponenciales:
+	\[n!=\sum_{k=0}^n{n\choose k}D_{n-1}\]
+	Diviendo entre $n!$, multiplicando por $x^n$ y sumando sobre todos los naturales, obtenemos las funciones generatrices exponenciales:
 	\[\frac{1}{1-x}=e^xD(x)\]
-	Usando \hyperref[rule3p]{la regla del producto exponencial}, donde $D(x)$ es la función generatriz exponencial, es decir, $D(x)=\sum_{n\geq0}\frac{D_n}n!x^n$.
+	Usando \hyperref[rule3p]{la regla del producto exponencial}, donde $D(x)$ es la función generatriz exponencial, es decir, $D(x)=\sum_{n\geq0}\frac{D_n}{n!}x^n$.
 	
-	Usando \hyperref[rule5]{la regla 5} en la expresión $e^{-x}/(1-x)$ obtenemos que
+	Usando \hyperref[rule5]{la regla 5} en la expresión $e^{-x}/(1-x)$ obtenemos que $D\overset{egf}{\longleftrightarrow}\left\{\sum_k(-1)^k/k!\right\}$, es decir,
 	\[\frac{D_n}{n!}=\sum_{k=0}^n\frac{(-1)^k}{k!}\]
 	Y para acordarse:
 	\[D_n\approx \frac{n!}{e}\]
 \end{ejem}
+\begin{defn}
+	Los \textbf{números de Catalan} $C_n$ cuentan la cantidad de expresiones de $n$ parejas de paréntesis bien balanceadas.
+\end{defn}
+Por ejemplo, $C_3=5$ ya que sólo hay:
+\[((()))\qquad(()())\qquad()()()\qquad()(())\qquad(())()\]
+Los números de Catalan también cuentan:
+\begin{itemize}
+	\item Los caminos en una cuadrícula de $n\times n$ partiendo de la esquina inferior izquierda a la esquina superior derecha sin pasar por arriba de la diagonal.
+	\item Triangulaciones de un $n+2$-ágono usando líneas que no se cruzan.
+\end{itemize}
 
 \chapter{Principio de inclusión-exclusión}
 La siguiente fórmula es sumamente familiar:
@@ -406,11 +433,21 @@ Y hay otra expresión ``almost devilish":
 \[\left|\bigcup_i^nA_i\right|=\sum_{\emptyset\neq\mathcal{A}\subseteq \{A_1,\ldots,A_n\}}(-1)^{|\mathcal{A}|-1}\left|\bigcap\mathcal{A}\right|\]
 Que de hecho es exactamente lo que West denota por $f(\emptyset)$.
 \chapter{Enumeración bajo acciones de grupo}
-\begin{lema}[que no es de Burnside]
+\begin{teo}[Lema que no es de Burnside]
 	Dada una acción de un grupo finito $G$ en un conjunto $X$,
-	\[|X/G|=\frac{1}{|G|}\sum_{g\in G}|\Fix(g)|\]
-	donde $X/G$ es el conjunto de órbitas y $\Fix(g)$ es el conjunto de puntos fijos de $g\in G$.
-\end{lema}
+	\[|X/G|=\frac{1}{|G|}\sum_{g\in G}|\Fix g|\]
+	donde $X/G$ es el conjunto de órbitas y $\Fix g$ es el conjunto de puntos fijos de $g\in G$.
+\end{teo}
+\begin{proof}
+	Primero notemos que 
+	\[\sum_{g\in G}|\Fix g|=\sum_{x\in X}|\Stab x|\]
+	ya que ambos lados cuentan la cantidad de parejas $(g,x)$ tales que $g$ fija a $x$.
+	
+	Ahora notemos que, dado $x$, hay tantos elementos en su órbita como clases laterales  $G/\Stab x$. En efecto: la correspondencia $gx\mapsto g+\Stab x$ está bien definida y es biyectiva. Agregando a esto el teorema de Lagrange,
+	\[|G\cdot x|=[G:\Stab x]=|G|/|\Stab x|\]
+	Invirtiendo este cociente y sumando sobre $x\in X$, casi terminamos. Sólo falta notar que como las órbitas son una partición de $X$,
+	\[\sum_{x\in X}\frac{1}{|G\cdot x|}=\sum_{G\cdot x\in G/X}\left(\sum_{y\in G\cdot x}\frac{1}{|G\cdot y|}\right)=\sum_{G\cdot x\in G/X}1=|X/G|\]
+\end{proof}
 \begin{teo}[de enumeración de Pólya-Redfield]
 	Sea $X$ un conjunto finito, $G$ un grupo de permutaciones de $X$ y $Y$ un conjunto finito de colores. Entonces,
 	\[|Y^X/G|=\frac{1}{|G|}\sum_{g\in G}|Y|^{c(g)}\]
@@ -468,7 +505,79 @@ Los ejercicios vienen de dos libros: W=West, C=Cameron.
 	La respuesta es
 	\[{r-20\choose20}{s+4\choose4}(r+s)!\]
 \end{proof}
+
+\paragraph{W 1.1.8}\textbf{¿Cuántas manos de 6 cartas se puede formar con una baraja de 52 cartas de forma que haya al menos una carta de cada palo?}
+\begin{proof}[Solución]
+	$13\cdot13\cdot13\cdot13\cdot48\cdot47$
+\end{proof}
+
+\paragraph{W 1.1.9}\textbf{Cuente la cantidad de números enteros del 0 al 99,999 en los que cada dígito se repite a lo más dos veces.}
+\begin{proof}[Solución]
+	La cantidad de números del 0 al 99,999 es 100,000. Para resolver nuestro problema, basta descartar los números en los que hay al menos un dígito que se repite tres veces. Veamos:
 	
+	\begin{itemize}
+		\item 	La cantidad de números de 5 dígitos tales que todos son diferentes es $10\cdot9\cdot8\cdot7\cdot6$.
+		\item Si dos números son iguales: $10\cdot9\cdot8\cdot7\cdot4$.
+		\item Si tres números son iguales: $10\cdot9\cdot8\cdot3$.
+	\end{itemize}
+	La respuesta es: $100,000-10\cdot9\cdot8\cdot3$.
+\end{proof}
+
+\paragraph{W 1.1.11}\textbf{Dada una bolsa con muchísimas canicas de 4 colores distintos, ¿de cuántas formas podemos escoger 12 canicas? Cuente las distintas formas de ordenarlas en una línea.}
+\begin{proof}[Solución]
+	Una elección de 12 canicas de la bolsa corresponde a un 12-multiconjunto de $[4]$. Sabemos que hay ${12+3\choose3}=455$ tales multiconjuntos. Contar las formas de ordenarlas en una línea es como contar las funciones de $[12]$ en $[4]$, que son $4^{12}$ (es un número muy grande).
+\end{proof}
+
+\paragraph{W 2.2.14}\textbf{Resuelva las siguientes recurrencias, dado que $a_0=a_1=1$.}
+\begin{itemize}
+	\item [(a)]$a_n=4a_{n-1}-4a_{n-2}-n+6$
+	\item[(b)]$a_n=5a_{n-1}-6a_{n-2}+2n-1+2^n$
+\end{itemize}
+\begin{proof}[Solución]\leavevmode
+\begin{itemize}
+\item [(a)] Multiplicando por $x^n$ y sumando sobre los naturales a partir de $2$, obtenemos:
+	\[\sum_{n\geq2}a_nx^n=4\sum_{n\geq2}a_{n-1}x^n-4\sum_{n\geq2}a_{n-2}x^n-\sum_{n\geq2}nx^n+6\sum_{n\geq2}x^n\]
+Suponiendo que $A(x)=\sum_{n\geq0}a_nx^n$, y tomando en cuenta que $a_0=a_1=1$, la expresión de arriba se puede expresar como:
+	\begin{align*}
+		A(x)-x-1&=4(xA(x)-x)-4x^2A(x)-\left(\frac{x}{(1-x)^2}-x\right)+\frac{6}{1-x}-x-1\\
+		\iff A(x)&=4xA(x)(1-x)-3x-\frac{x}{(1-x)^2}+\frac{6}{1-x}\\
+		\iff A(x)(1-4x(1-x))&=\frac{6}{1-x}-\frac{x}{(1-x)^2}-3x\\
+		\iff A(x)(1-2x)^2&=\frac{6}{1-x}-\frac{x}{(1-x)^2}-3x
+	\end{align*}
+Como $\frac{1}{1-2x}=\sum_{n\geq0}(2x)^n$, al derivar obtenemos que $\frac{2}{(1-2x)^2}=\sum_{n\geq0}(n+1)2^{(n+1)}x^{n}$
+	\begin{align*}
+		A(x)&= \frac{1}{2}\frac{2}{(1-2x)^2}\left(\frac{6}{1-x}-\frac{x}{(1-x)^2}-3x\right)\\
+		&=\frac{1}{2}\sum_{n\geq0}(n+1)2^{(n+1)}x^{n}\left(6\sum_{n\geq0}x^n-\sum_{n\geq0}nx^n-3x\right)\\
+		&=\frac{1}{2}\left(6\sum_{n\geq0}\left(\sum_{j=0}^n (j+1)2^{(j+1)}\right)x^n-\sum_{n\geq0}\left(\sum_{j=0}^n (j+1)2^{(j+1)}(n-j)\right)x^n-3\sum_{n\geq0}(n+1)2^{(n+1)}x^{n+
+		1}\right)
+	\end{align*}
+Ahora veamos si sí da $1$ en $a_0$ y $a_1$:
+\[a_0=\text{no da}\]
+
+	
+\end{itemize}
+\end{proof}
+	
+\paragraph{C 3.13.10} \textbf{Demuestre las siguientes identidades:}
+\begin{enumerate}[label=(\alph*)]
+	\item ${n\choose k}{k\choose\ell}={n\choose\ell}{n-\ell\choose k-\ell}$
+	\item $\sum_{i=0}^k{m\choose i}{n\choose k-i}={m+n\choose k}$ donde ${n\choose k}=0$ si $k<0$ o $k>n$.
+	\item $\sum_{i=0}^k{n+i\choose i}={n+k+1\choose k}$
+	\item $\sum_{k=1}^nk{n\choose k}=n2^{n-1}$
+	\item $\sum_{k=0}^{n}(-1)^k{n\choose k}^2=
+	\begin{cases}
+		0\qquad\text{si }k\text{ es impar}\\
+		(-1)^m{2m\choose m}\qquad\text{si }n=2m
+	\end{cases}$
+\end{enumerate}
+\begin{proof}[Solución]\leavevmode
+	\begin{enumerate}[label=(\alph*)]
+		\item Ambos lados cuentan los subcomités de tamaño $\ell$ de los comités de tamaño $k$ de un grupo de $n$ personas.
+		\item Ambos lados cuentan los $k$-subconjuntos de $m+n$.
+		\item 
+		\item Ambos lados cuentan la cantidad de parejas $(m,M)$ con $m\in[n]$ y $M\subseteq [n]$ tales que $m\in M$.
+	\end{enumerate}
+\end{proof}
 \paragraph{C 3.13.10} \textbf{¿Cuántas palabras se pueden formar con las letras en la palabra STATE?}
 \begin{proof}[Solución]
 	Tenemos cinco símbolos, así que la cantidad de permutaciones en total es de $5!=120$.  Sin embargo, cada intercambio de la letra T nos lleva a la misma palabra. Para tomar esto en cuenta consideremos el siguiente razonamiento. Renombrando los símbolos como $\text{T}_1$ y $\text{T}_2$, la cantidad de permutaciones se puede dividir en dos bloques: los que tienen primero a $\text{T}_1$ y los que tienen primero a $\text{T}_2$. Así, la cantidad total de permutaciones salvo permutaciones de las Ts es $5!/2=60$.
@@ -608,7 +717,7 @@ Dados un conjunto de niñas y uno de niños, dado que cada niño conoce cierto s
 Estos resultados se usan para completar cuadrados latinos. Ver Proofs from the Book.
 \chapter{Diseños de bloques}
 \begin{defn}
-	Un $t-(v,k,\lambda)$\textbf{-diseño de bloques} es una colección $\mathcal{B}$ de subconjuntos de algún conjunto $V$ tales que:
+	Un $t$-$(v,k,\lambda)$\textbf{-diseño de bloques} es una colección $\mathcal{B}$ de subconjuntos de algún conjunto $V$ tales que:
 	\begin{itemize}
 		\item $V$ tiene $v$ elementos.
 		\item Cada bloque en $\mathcal{B}$ tiene $k$ elementos.
@@ -621,8 +730,8 @@ Estos resultados se usan para completar cuadrados latinos. Ver Proofs from the B
 \begin{prop}
 	Un $(v,k,\lambda)$-diseño de bloques que tiene $b$ bloques y cualquier elemento de $V$ aparece en $r$ bloques satisface que:
 	\begin{enumerate}
-		\item $bk=vr$
-		\item $r(k-1)=\lambda(v-1)$
+		\item $vr=kb$
+		\item $\lambda(v-1)=r(k-1)$
 	\end{enumerate}
 \end{prop}
 \begin{proof}\leavevmode
@@ -631,6 +740,12 @@ Estos resultados se usan para completar cuadrados latinos. Ver Proofs from the B
 		\item Dado $x\in V$, ambos lados de la igualdad son formas de contar la cantidad de elementos que hay en cada bloque sin contar a $x$.
 	\end{enumerate}
 \end{proof}
+Hay una generalización de la proposición anterior para diseños de bloques con $t\neq2$:
+\begin{prop}
+	Si un $t$-$(v,k,\lambda)$-diseño de bloques existe, entonces el siguiente número es un entero para $0\leq s\leq t$:
+	\[\lambda\frac{{v-s\choose t-s}}{{k-s\choose t-s}}=\lambda\frac{(v-s)(v-s-1)\ldots(v-t+1)}{(k-s)(k-s-1)\ldots(k-t+1)}\]
+\end{prop}
+Los casos $s=0$ y $s=1$ corresponden a los incisos 1 y 2 de la primera proposición.
 \begin{teo}[Desigualdad de Fisher]
 	Si $k<v$, entonces $b\geq v$.
 \end{teo}
@@ -661,11 +776,24 @@ Va a resultar que podremos voltear el diseño. Ahí va:
 \begin{prop}
 	En un diseño de bloques simétrico, no sólo cada pareja de elementos está en $\lambda$ bloques, sino que cada pareja de bloques se intersecta en $\lambda$ elementos.
 \end{prop}
+\begin{proof}
+	Tomemos un bloque arbitrario $B$ y veamos que su intersección con todos los demás es de tamaño $\lambda$. Denotemos por $x_i,\ldots,x_{v-1}$ el tamaño de la intersección de $B$ con el $i$-ésimo bloque. Mostraremos que $\sum(x_i-\lambda)^2=0$.
+	
+	Cada elemento de $B$ está en $k-1$ bloques además de $B$. Así que hay $k(k-1)$ elementos en la intersección de $B$ con algún otro bloque, es decir, $\sum x_i=k(k-1)=\lambda(v-1)$ aplicando nuestra proposición.
+	
+	Análogamente, cada pareja en $B$ está en $\lambda -1$ bloques además de $B$, así que hay ${k\choose 2}(\lambda-1)$ parejas en la intersección de $B$ con otro bloque, es decir, $\sum{x_i\choose 2}={k\choose 2}(\lambda-1)$. Podemos reescribir esto como $\sum x_i(x_i-1)=k(k-1)(\lambda-1)=\sum x_i^2-x_i=\lambda(v-1)(\lambda-1)$.
+	
+	Sumando las dos igualdades obtenemos que $\sum x_i^2=\lambda(v-1)+\lambda(v-1)(\lambda-1)=\lambda^2(v-1)$. Y luego:
+	\begin{align*}
+		\sum(x_i-\lambda)^2&=\sum x_i^2-2\sum\lambda x_i+\sum \lambda^2\\
+		&=\lambda^2(v-1)-2\lambda(\lambda(v-1))+(v-1)\lambda^2=0
+	\end{align*}
+\end{proof}
 \begin{prop}
 	En un diseño de bloques simétrico, si $v$ es par, entonces $k-\lambda$ es un cuadrado.
 \end{prop}
 \begin{teo}[Bruck-Ryser-Chowla]
-	Si existe un $(v,k,\lambda)$-diseño de bloques, entonces
+	Si existe un $(v,k,\lambda)$-diseño de bloques simétrico, entonces
 	\begin{enumerate}
 		\item[\textit{(a)}] Si $v$ es par, $k-\lambda$ es un cuadrado.
 		\item[\textit{(b)}] Si $v$ es impar, entonces
@@ -691,8 +819,8 @@ Va a resultar que podremos voltear el diseño. Ahí va:
 	Si $n>4$, son equivalentes:
 	\begin{itemize}
 		\item Existe una matriz de Hadamard de orden $n$.
-		\item Existe un $3-(n,\frac{1}{2}n,\frac{1}{2}n-1)$-diseño de bloques.
-		\item Existe un $2-(n-1,\frac{1}{2}n-1,\frac{1}{4}n-1)$-diseño de bloques.
+		\item Existe un $3$-$(n,\frac{1}{2}n,\frac{1}{2}n-1)$-diseño de bloques.
+		\item Existe un $2$-$(n-1,\frac{1}{2}n-1,\frac{1}{4}n-1)$-diseño de bloques.
 	\end{itemize}
 \end{teo}
 \chapter{Planos proyectivos finitos}
@@ -787,10 +915,29 @@ Va a resultar que podremos voltear el diseño. Ahí va:
 \end{prop}
 \chapter{Ternas de Steiner}
 Los planos proyectivos son los diesños de bloques con $k$ más grande. Las ternas de Steiner tienen el $k$ más pequeño: tres.
+\begin{prop}[Cameron, 8.1.1]Sea $\mathcal{B}$ una familia de $m$-subconjuntos de un $n$-conjunto tal que cualquier $l$-subconjunto está contenida en a lo más un elemento de $\mathcal{B}$. Entonces
+	\[|\mathcal{B}|\leq{n\choose l}\Big/{m\choose l}\]
+	y la igualdad se da cuando cada $l$-subconjunto está contenido en exactamente un elemento de $\mathcal{B}$.
+\end{prop}
+\begin{proof}
+	Para la igualdad, se trata de un $l$-$(n,m,1)$-diseño de bloques. Cualquier subconjunto de tamaño $l$ está contenido en exactamente un $m$-bloque. En este caso, los $l$-subconjuntos del $n$-conjunto están en correspondencia con los $l$-subconjuntos de los bloques. Cada bloque tiene ${m\choose l}$ $l$-subconjuntos.
+	
+	Si cada $l$ subconjunto está en a lo más un elemento de $|B|$, puede haber más $l$-subconjuntos en total que los que les hacemos corresponder en los bloques.
+\end{proof}
 \begin{defn}
 	Una \textbf{terna de Steiner} es un $(v,3,1)$-diseño de bloques, denotado por $\STS(v)$.
 \end{defn}
 \begin{teo}
-	Si un $\STS(v)$ eviste, entonces $v=1,3\mod6$
+	Si un $\STS(v)$ existe, entonces $v=1,3\mod6$
 \end{teo}
+\begin{proof}
+	Sustituyendo los valores conocidos en nuestras fórmulas, obtenemos que
+	\[\lambda(v-1)=r(k-1)\approx\frac{v-1}{2}=r\qquad\implies\qquad vr=kb\approx \frac{v(v-1)}{6}=b\]
+	La primera igualdad quiere decir que $v$ es impar, así que debe estar en alguna de las clases equivalencia $\bar{1},\bar{3}$ o $\bar{5}$ en $\Z_6$. Para ver que no puede ser $\bar{5}$, supongamos que $v=6m+5$. Entonces tenemos:
+	\[\frac{(6m+5)(6m+4)}{6}=\frac{(6m+5)(3m+2)}{3}\]
+	pero ni $6m+5$ ni $3m+2$ son múltiplos de $3$, así que esa fracción no podría ser un entero, que no es posible.
+\end{proof}
+
+\chapter{Ejercicios}
+
 \end{document}
