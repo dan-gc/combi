@@ -28,7 +28,7 @@
 \usepackage[left=4cm, right=4cm]{geometry}
 \usepackage{enumitem}
 \usepackage{palatino}
-%\usepackage{parskip}
+\usepackage{parskip}
 \usepackage{array}%This is used in a table
 \usepackage{amsthm}
 \usepackage{amssymb}
@@ -249,7 +249,7 @@ Resulta que:
 \subsection{Relaciones no homogéneas}
 	Literalmente es lo mismo que para ecuaciones diferenciales: las soluciones de una relación de recurrencia no homogénea están dadas por
 	\[a_n=p_n+h_n\]
-	donde $p_n$ es una solución particular y $h_n$ es una solución del sistema homogéneo asociado.
+	donde $p_n$ es una solución particular (que no depende de las condiciones iniciales) y $h_n$ es una solución del sistema homogéneo asociado.
 	
 	Para encontrar la solución particular consulté \href{https://courses.ics.hawaii.edu/ReviewICS241/morea/counting/RecurrenceRelations2-QA.pdf}{estas notas hawaiianas}. Resulta que para una recurrencia de la forma
 	\[a_n=c_1a_{n-1}+\ldots+c_k+F(n)\]
@@ -265,7 +265,7 @@ Resulta que:
 	
 	Siguiendo a West:
 	\begin{teo}
-		Tomemos una recurrencia de la forma $a_n=(\sum_{i=1}^kc_ia_{n-i})+F(n)\alpha^n$ donde $n\geq k$, $F$ es un polinomio de grado $d$, y $\alpha$ es una raíz de multiplicidad $r$ de la recurrencia homogénea asociada.
+		Tomemos una recurrencia de la forma $a_n=(\sum_{i=1}^kc_ia_{n-i})+F(n)\alpha^n$ donde $n\geq k$, $F$ es un polinomio de grado $d$, y $\alpha$ es una raíz de multiplicidad $r$ ($r$ puede ser cero, que en las notas hawaiianas es cuando $s$ no es una raíz) de la recurrencia homogénea asociada.
 		
 		Entonces existe una solución de la forma $a_n=P(n)n^r\alpha^n$ donde $P$ es un polinomio de grado a lo más $d$.
 	\end{teo}
@@ -431,7 +431,18 @@ Escribir esto puede no ser algo laborioso. Matousek nos da una buena solución d
 \end{teo}
 Y hay otra expresión ``almost devilish":
 \[\left|\bigcup_i^nA_i\right|=\sum_{\emptyset\neq\mathcal{A}\subseteq \{A_1,\ldots,A_n\}}(-1)^{|\mathcal{A}|-1}\left|\bigcap\mathcal{A}\right|\]
-Que de hecho es exactamente lo que West denota por $f(\emptyset)$.
+Que de hecho se parece mucho a lo que West denota por $f(\emptyset)$. Veamos un poco más el planteamiento de West:
+
+Dado un subconjunto del conjunto de índices $T\subseteq[n]$, denotaremos por $f(T)$ a la cantidad de elementos $x$ tales que $x\in A_i$ si y sólo si $i\in T$. De alguna manera estamos partiendo el espacio de acuerdo a todas las posibles intersecciones de los conjuntos:
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.3\linewidth]{PIE}
+\end{figure}
+\begin{teo}[PIE]
+	\[f(T)=\sum_{S\supseteq T}(-1)^{|S|-|T|}\left|\bigcap_{i\in S}A_i\right|\]
+\end{teo}
+Para calcular el tamaño de la unión de los conjuntos, simplemente encontramos $f(\varnothing)=\sum_{S\subseteq[n]}(-1)^{|S|}\left|\bigcap_{i\in S}A_i\right|$ y luego 
+
 \chapter{Enumeración bajo acciones de grupo}
 \begin{teo}[Lema que no es de Burnside]
 	Dada una acción de un grupo finito $G$ en un conjunto $X$,

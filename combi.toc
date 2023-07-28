@@ -11,28 +11,28 @@
 \contentsline {section}{\numberline {3.1}Ordinarias}{10}{section.3.1}%
 \contentsline {section}{\numberline {3.2}F.g. exponenciales}{11}{section.3.2}%
 \contentsline {chapter}{\numberline {4}Principio de inclusión-exclusión}{14}{chapter.4}%
-\contentsline {chapter}{\numberline {5}Enumeración bajo acciones de grupo}{15}{chapter.5}%
-\contentsline {chapter}{\numberline {6}Ejercicios}{17}{chapter.6}%
-\contentsline {paragraph}{W 1.1.1}{17}{paragraph*.2}%
-\contentsline {paragraph}{W 1.1.2}{17}{paragraph*.3}%
-\contentsline {paragraph}{W 1.1.3}{18}{paragraph*.4}%
-\contentsline {paragraph}{W 1.1.8}{18}{paragraph*.5}%
-\contentsline {paragraph}{W 1.1.9}{18}{paragraph*.6}%
-\contentsline {paragraph}{W 1.1.11}{18}{paragraph*.7}%
-\contentsline {paragraph}{W 2.2.14}{19}{paragraph*.8}%
-\contentsline {paragraph}{C 3.13.10}{19}{paragraph*.9}%
+\contentsline {chapter}{\numberline {5}Enumeración bajo acciones de grupo}{16}{chapter.5}%
+\contentsline {chapter}{\numberline {6}Ejercicios}{18}{chapter.6}%
+\contentsline {paragraph}{W 1.1.1}{18}{paragraph*.3}%
+\contentsline {paragraph}{W 1.1.2}{18}{paragraph*.4}%
+\contentsline {paragraph}{W 1.1.3}{19}{paragraph*.5}%
+\contentsline {paragraph}{W 1.1.8}{19}{paragraph*.6}%
+\contentsline {paragraph}{W 1.1.9}{19}{paragraph*.7}%
+\contentsline {paragraph}{W 1.1.11}{19}{paragraph*.8}%
+\contentsline {paragraph}{W 2.2.14}{19}{paragraph*.9}%
 \contentsline {paragraph}{C 3.13.10}{20}{paragraph*.10}%
-\contentsline {paragraph}{C 3.13.10}{20}{paragraph*.11}%
-\contentsline {part}{II\hspace {1em}Acomodos}{21}{part.2}%
-\contentsline {chapter}{\numberline {7}Conjuntos parcialmente ordenados}{22}{chapter.7}%
-\contentsline {chapter}{\numberline {8}Teoría extremal de conjuntos}{23}{chapter.8}%
-\contentsline {section}{\numberline {8.1}Erdős-Ko-Radó}{23}{section.8.1}%
-\contentsline {section}{\numberline {8.2}Teorema de Sperner}{24}{section.8.2}%
-\contentsline {section}{\numberline {8.3}De Bruijn-Erdős}{24}{section.8.3}%
-\contentsline {chapter}{\numberline {9}Cuadrados latinos}{25}{chapter.9}%
-\contentsline {chapter}{\numberline {10}Teorema de Hall}{26}{chapter.10}%
-\contentsline {chapter}{\numberline {11}Diseños de bloques}{28}{chapter.11}%
-\contentsline {chapter}{\numberline {12}Matrices de Hadamard}{31}{chapter.12}%
-\contentsline {chapter}{\numberline {13}Planos proyectivos finitos}{32}{chapter.13}%
-\contentsline {chapter}{\numberline {14}Ternas de Steiner}{34}{chapter.14}%
-\contentsline {chapter}{\numberline {15}Ejercicios}{35}{chapter.15}%
+\contentsline {paragraph}{C 3.13.10}{21}{paragraph*.11}%
+\contentsline {paragraph}{C 3.13.10}{21}{paragraph*.12}%
+\contentsline {part}{II\hspace {1em}Acomodos}{22}{part.2}%
+\contentsline {chapter}{\numberline {7}Conjuntos parcialmente ordenados}{23}{chapter.7}%
+\contentsline {chapter}{\numberline {8}Teoría extremal de conjuntos}{24}{chapter.8}%
+\contentsline {section}{\numberline {8.1}Erdős-Ko-Radó}{24}{section.8.1}%
+\contentsline {section}{\numberline {8.2}Teorema de Sperner}{25}{section.8.2}%
+\contentsline {section}{\numberline {8.3}De Bruijn-Erdős}{25}{section.8.3}%
+\contentsline {chapter}{\numberline {9}Cuadrados latinos}{26}{chapter.9}%
+\contentsline {chapter}{\numberline {10}Teorema de Hall}{27}{chapter.10}%
+\contentsline {chapter}{\numberline {11}Diseños de bloques}{29}{chapter.11}%
+\contentsline {chapter}{\numberline {12}Matrices de Hadamard}{32}{chapter.12}%
+\contentsline {chapter}{\numberline {13}Planos proyectivos finitos}{33}{chapter.13}%
+\contentsline {chapter}{\numberline {14}Ternas de Steiner}{35}{chapter.14}%
+\contentsline {chapter}{\numberline {15}Ejercicios}{37}{chapter.15}%
